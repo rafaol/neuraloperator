@@ -205,7 +205,7 @@ Number = Union[int, float]
 
 
 class SHT(nn.Module):
-    """A wrapper for the Spherical Harmonics transform 
+    """A wrapper for the Spherical Harmonics transform
 
     Allows to call it with an interface similar to that of FFT
     """
@@ -241,11 +241,11 @@ class SHT(nn.Module):
                     grid=grid,
                     norm=norm
                 )
-                .to(device=x.device)
                 .to(dtype=self.dtype)
+                .to(device=x.device)
             )
             self._SHT_cache[cache_key] = sht
-        
+
         return sht(x)
 
 
@@ -274,17 +274,17 @@ class SHT(nn.Module):
                     grid=grid,
                     norm=norm
                 )
-                .to(device=x.device)
                 .to(dtype=self.dtype)
+                .to(device=x.device)
             )
             self._iSHT_cache[cache_key] = isht
-        
+
         return isht(x)
 
 
 class SphericalConv(BaseSpectralConv):
     """Spherical Convolution, base class for the SFNO [1]_
-    
+
     Parameters
     ----------
     sht_norm : str, {'ortho'}
@@ -404,7 +404,7 @@ class SphericalConv(BaseSpectralConv):
             sht_grids = [sht_grids]*2
         self.sht_grids = sht_grids
         self.sht_handle = SHT(dtype=self.dtype, device=self.device)
-    
+
     def transform(self, x, output_shape=None):
         *_, in_height, in_width = x.shape
 
@@ -465,7 +465,7 @@ class SphericalConv(BaseSpectralConv):
     @property
     def n_modes(self):
         return self._n_modes
-    
+
     @n_modes.setter
     def n_modes(self, n_modes):
         if isinstance(n_modes, int): # Should happen for 1D FNO only
